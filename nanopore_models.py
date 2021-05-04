@@ -112,7 +112,8 @@ class BNLSTMCell(nn.Module):
 		# matrix.
 		weight_hh_data = torch.eye(self.hidden_size)
 		weight_hh_data = weight_hh_data.repeat(1, 4)
-		self.weight_hh.data.set_(weight_hh_data)
+		with torch.no_grad():
+			self.weight_hh.set_(weight_hh_data)
 		# The bias is just set to zero vectors.
 		init.constant_(self.bias.data, val=0)
 		# Initialization of BN parameters.

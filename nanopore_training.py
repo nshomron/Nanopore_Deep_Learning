@@ -389,19 +389,19 @@ def main():
 
 				## logging and printing accuracy and loss
 				stage4  = time.time()
-				lossArray.append(train_loss.data[0])
-				accArray.append(train_accuracy.data[0])
+				lossArray.append(train_loss.data.item())
+				accArray.append(train_accuracy.data.item())
 
 				valid_categoryAccCounter = [0 for k in range(2)]
 				valid_categorySampleCounter = [0 for k in range(2)]
 				for position, k in enumerate(currentBatchChromAndMito_labels_shuffled_Variable):
-					valid_categorySampleCounter[k.data[0]] += 1
-					if (k.data[0] == torch.max(scores, 1)[1].data[position]):
-						if k.data[0] == 1:
+					valid_categorySampleCounter[k.data.item()] += 1
+					if (k.data.item() == torch.max(scores, 1)[1].data[position]):
+						if k.data.item() == 1:
 							numCorrectMitoSamples += 1
-						if k.data[0] == 0:
+						if k.data.item() == 0:
 							numCorrectChromSamples += 1
-						valid_categoryAccCounter[k.data[0]] += 1
+						valid_categoryAccCounter[k.data.item()] += 1
 				percentageCategory = (np.divide(valid_categoryAccCounter, valid_categorySampleCounter))
 				percentageCategory[np.isnan(percentageCategory)] = 0
 
@@ -418,9 +418,9 @@ def main():
 					 " | start/current LR:", str(optim_lr),",", str(current_lr))
 					 # " | reads left: ", len(train_chrom_dataset)," out of ", len(wholeData_Chrom))
 					print("loss is: ", "{0:.4f}".format(\
-						train_loss.data[0]) ,\
+						train_loss.data.item()) ,\
 					 " \nand acc is: ", "{0:.4f}".format(\
-						train_accuracy.data[0] ))
+						train_accuracy.data.item() ))
 					print("acc for classes: ",percentageCategory) 
 					unique, counts = np.unique(torch.max(scores, 1)[1].data.cpu().numpy(), return_counts=True)
 					print("", dict(zip(unique, counts)))
@@ -486,15 +486,15 @@ def main():
 							label=currentBatchChromAndMito_labels_shuffled_Variable,\
 							model = model, validation = True)
 
-						lossArrayTest.append(valid_loss.data[0])
-						accArrayTest.append(valid_accuracy.data[0])
+						lossArrayTest.append(valid_loss.data.item())
+						accArrayTest.append(valid_accuracy.data.item())
 
 						valid_categoryAccCounter = [0 for k in range(2)]
 						valid_categorySampleCounter = [0 for k in range(2)]
 						for position, k in enumerate(currentBatchChromAndMito_labels_shuffled_Variable):
-							valid_categorySampleCounter[k.data[0]] += 1
-							if (k.data[0] == torch.max(valid_scores, 1)[1].data[position]):
-								valid_categoryAccCounter[k.data[0]] += 1
+							valid_categorySampleCounter[k.data.item()] += 1
+							if (k.data.item() == torch.max(valid_scores, 1)[1].data[position]):
+								valid_categoryAccCounter[k.data.item()] += 1
 						percentageCategory = (np.divide(valid_categoryAccCounter, valid_categorySampleCounter))
 						percentageCategory[np.isnan(percentageCategory)] = 0
 						allChromAccTest.append(np.multiply(percentageCategory, 100).astype(int))

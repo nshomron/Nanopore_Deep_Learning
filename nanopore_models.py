@@ -107,14 +107,14 @@ class BNLSTMCell(nn.Module):
 		Initialize parameters following the way proposed in the paper.
 		"""
 
-		init.orthogonal(self.weight_ih.data)
+		init.orthogonal_(self.weight_ih.data)
 		# The hidden-to-hidden weight matrix is initialized as an identity
 		# matrix.
 		weight_hh_data = torch.eye(self.hidden_size)
 		weight_hh_data = weight_hh_data.repeat(1, 4)
 		self.weight_hh.data.set_(weight_hh_data)
 		# The bias is just set to zero vectors.
-		init.constant(self.bias.data, val=0)
+		init.constant_(self.bias.data, val=0)
 		# Initialization of BN parameters.
 		self.bn_ih.reset_parameters()
 		self.bn_hh.reset_parameters()

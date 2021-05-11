@@ -33,6 +33,7 @@ from nanopore_models import bnLSTM, bnLSTM_32window, regGru_32window_hidden_BN,\
 
 
 
+# torch.multiprocessing.set_start_method('spawn')  # Fix for cuda multiprocessing errors
 
 
 ### Command example to run DL training
@@ -172,8 +173,8 @@ def main():
 
 
 
-			num_of_workers = 8
-			use_pin_memmory = True
+			num_of_workers = 0
+			use_pin_memmory = False
 			train_chrom_dataloader = iter(DataLoader(dataset=train_chrom_dataset,
 													   batch_size=batch_size, 
 													   shuffle=shuffleDatasets,

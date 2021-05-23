@@ -13,8 +13,8 @@ The code was tested on:
 
 
 In order to train and test deep learning models the requirements are:
-* torch==0.4.1
-* torchvision==0.8.2
+* torch
+* torchvision
 * matplotlib
 * pandas
 * numpy

@@ -3,6 +3,8 @@ A repository for Real-Time classification on Nanopore sequencing raw signal usin
 
 This is the official implementation of the code in "Real-time selective sequencing using nanopores and deep learning"
 
+The code could be easily run within a google colab notebook "[Nanopore_Deep_Learning_example.ipynb](Nanopore_Deep_Learning_example.ipynb)"
+
 ## Environment & requirements
 The code was tested on:
 
